@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/home_controller.dart';
 import '../../../services/keepAliveWrapper.dart';
+import '../../../services/screenAdaptor.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -14,75 +13,23 @@ class HomeView extends GetView<HomeController> {
             appBar: AppBar(
               title: const Text('HomeView'),
               centerTitle: true,
+              backgroundColor: Colors.blue,
             ),
-            body: ListView(
-              children: const [
-                ListTile(
-                  title: Text("11111111"),
+            body: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: ScreenAdaptor.height(683),
+                  width: ScreenAdaptor.width(1080),
+                  color: Colors.yellow,
                 ),
-                ListTile(
-                  title: Text("11111111"),
+                SizedBox(
+                  height: ScreenAdaptor.height(20),
                 ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("2222222"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("444444444444"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("11111111"),
-                ),
-                ListTile(
-                  title: Text("555555555"),
-                ),
+                Text("手机",
+                    style: TextStyle(
+                      fontSize: ScreenAdaptor.fontSize(34),
+                    ))
               ],
             )));
   }
