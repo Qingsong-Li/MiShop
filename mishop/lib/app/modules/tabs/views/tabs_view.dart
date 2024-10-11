@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 
 import '../controllers/tabs_controller.dart';
 
+import '../../../services/myIcons.dart';
+
 class TabsView extends GetView<TabsController> {
   const TabsView({super.key});
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
         body: PageView(
-        
           controller: controller.pageController,
           children: controller.pages,
           onPageChanged: (value) {
@@ -25,23 +26,17 @@ class TabsView extends GetView<TabsController> {
           ),
           child: BottomNavigationBar(
             items: const [
+              BottomNavigationBarItem(icon: Icon(MyIcons.home), label: "首页"),
               BottomNavigationBarItem(
-                  icon: InkWell(
-                    child: Icon(Icons.home),
-                  ),
-                  label: "首页"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.manage_search), label: "分类"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.heart_broken), label: "服务"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart), label: "购物车"),
-              BottomNavigationBarItem(icon: Icon(Icons.people), label: "我的"),
+                  icon: Icon(MyIcons.category), label: "分类"),
+              BottomNavigationBarItem(icon: Icon(MyIcons.heart), label: "服务"),
+              BottomNavigationBarItem(icon: Icon(MyIcons.cart), label: "购物车"),
+              BottomNavigationBarItem(icon: Icon(MyIcons.me), label: "我的"),
             ],
             onTap: (index) {
               controller.pageController.jumpToPage(index);
             },
-            fixedColor: Colors.orange[400],
+            fixedColor: const Color.fromARGB(255, 238, 65, 12),
             type: BottomNavigationBarType.fixed,
             currentIndex: controller.currentPage.value,
           ),

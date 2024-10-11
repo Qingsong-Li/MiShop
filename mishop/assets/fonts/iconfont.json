@@ -1,0 +1,79 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "77191",
+      "name": "二维码",
+      "font_class": "erweima",
+      "unicode": "f010a",
+      "unicode_decimal": 983306
+    },
+    {
+      "icon_id": "673501",
+      "name": "icon_home",
+      "font_class": "iconhome",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "1279408",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "4251752",
+      "name": "扫码",
+      "font_class": "saoma",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "5532881",
+      "name": "分类",
+      "font_class": "fenlei",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "12975025",
+      "name": "购物车",
+      "font_class": "gouwuche",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "18108078",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e502",
+      "unicode_decimal": 58626
+    },
+    {
+      "icon_id": "22724211",
+      "name": "icon-小米归属",
+      "font_class": "icon-xiaomiguishu",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "24492793",
+      "name": "Heart",
+      "font_class": "Heart",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "24592068",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e6b9",
+      "unicode_decimal": 59065
+    }
+  ]
+}
