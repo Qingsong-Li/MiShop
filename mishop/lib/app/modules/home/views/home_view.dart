@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mishop/app/services/myIcons.dart';
@@ -39,6 +37,7 @@ class HomeView extends GetView<HomeController> {
                       }
                     },
                   )),
+
             // 用于实现APPBar的高斯模糊的背景
             Positioned(
                 top: 0,
@@ -62,6 +61,7 @@ class HomeView extends GetView<HomeController> {
                         ),
                       );
                     })),
+
             Positioned(
               top: ScreenAdaptor.height(135),
               left: 0,
@@ -109,8 +109,8 @@ class _MyAppBarState extends State<MyAppBar> {
                     );
                   })),
           Positioned(
-              top: ScreenAdaptor.height(20),
-              bottom: ScreenAdaptor.height(20),
+              top: ScreenAdaptor.height(25),
+              bottom: ScreenAdaptor.height(25),
               right: ScreenAdaptor.width(270),
               child: AnimatedBuilder(
                   animation: widget.controller.textfieldAnimation,
@@ -132,8 +132,7 @@ class _MyAppBarState extends State<MyAppBar> {
                             hintStyle: TextStyle(
                                 color: const Color.fromRGBO(195, 187, 177, 1),
                                 fontSize: ScreenAdaptor.fontSize(38)),
-                            contentPadding: EdgeInsets.fromLTRB(
-                                20, ScreenAdaptor.height(0), 0, 0),
+                            contentPadding: EdgeInsets.fromLTRB(0, 0, 0, ScreenAdaptor.height(35)),
                             border: InputBorder.none,
                             prefixIconConstraints: BoxConstraints(
                               maxWidth: ScreenAdaptor.width(100),
@@ -187,10 +186,3 @@ class _MyAppBarState extends State<MyAppBar> {
   }
 }
 
-class _MyVerticalDragGestureRecognizer extends VerticalDragGestureRecognizer {
-  @override
-  void rejectGesture(int pointer) {
-    // 单方面宣布自己胜出
-    acceptGesture(pointer);
-  }
-}

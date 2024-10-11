@@ -43,7 +43,7 @@ class HomeController extends GetxController
             begin: const Color.fromRGBO(254, 253, 249, 1), end: Colors.black)
         .animate(animationController);
     backgroundAnimation =
-        Tween<double>(begin: 0, end: 25).animate(animationController);
+        Tween<double>(begin: 0, end: 20).animate(animationController);
 
     // 监听滑动
     scrollController.addListener(() {
