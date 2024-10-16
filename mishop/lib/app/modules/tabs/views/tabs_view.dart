@@ -12,6 +12,7 @@ class TabsView extends GetView<TabsController> {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
         body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
           controller: controller.pageController,
           children: controller.pages,
           onPageChanged: (value) {

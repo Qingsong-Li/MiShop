@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:mishop/app/modules/home/models/shopModel.dart';
 import 'package:mishop/app/services/screenAdaptor.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   //TODO: Implement HomeController
-  RxBool flag = false.obs;
-  final ScrollController scrollController = ScrollController();
+
+  RxList<ShopModel> focusList = <ShopModel>[].obs;
+
+  final ScrollController scrollController =
+      ScrollController(); // ListView的滚动控制器
 
   late final AnimationController animationController;
   late final textfieldAnimation; //输入框延长的动画
@@ -16,9 +20,9 @@ class HomeController extends GetxController
 
   // 根据滚动距离更新动画进度
   void updateAnimation(double offset) {
-    if(offset<50){
+    if (offset < 50) {
       animationController.value = 0;
-    }else if(offset>150){
+    } else if (offset > 150) {
       animationController.value = 1;
     }
     // 将滚动距离映射到动画的进度范围
@@ -30,8 +34,18 @@ class HomeController extends GetxController
   @override
   void onInit() {
     super.onInit();
+    animateInit();
+    getFocusData();
+  }
 
-    // 动画初始化
+// 数据初始化
+  void getFocusData() async {
+    focusList.value =
+        await ShopModel.requestWithUrl("https://miapp.itying.com/api/focus");
+  }
+
+// banner动画初始化
+  void animateInit() {
     animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
     textfieldAnimation = Tween<double>(
@@ -56,9 +70,6 @@ class HomeController extends GetxController
       updateAnimation(scrollController.position.pixels);
     });
   }
-
-  
-
 
   @override
   void onReady() {
