@@ -14,6 +14,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return KeepAliveWrapper(
       child: Scaffold(
+        backgroundColor:Colors.white,
         body: Stack(
           children: [
             Positioned(

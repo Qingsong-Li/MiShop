@@ -26,6 +26,7 @@ class TabsView extends GetView<TabsController> {
             highlightColor: Colors.transparent,
           ),
           child: BottomNavigationBar(
+            backgroundColor: Colors.white,
             items: const [
               BottomNavigationBarItem(icon: Icon(MyIcons.home), label: "首页"),
               BottomNavigationBarItem(
@@ -37,7 +38,7 @@ class TabsView extends GetView<TabsController> {
             onTap: (index) {
               controller.pageController.jumpToPage(index);
             },
-            fixedColor: const Color.fromARGB(255, 238, 65, 12),
+            fixedColor: const Color.fromRGBO(225, 105, 23, 1),
             type: BottomNavigationBarType.fixed,
             currentIndex: controller.currentPage.value,
           ),

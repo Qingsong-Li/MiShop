@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
  import 'package:flutter_swiper_view/flutter_swiper_view.dart';
-import 'package:mishop/app/services/screenAdaptor.dart';
 
 /// 自定义页面指示器
 class CustomSwiperPaginationBuilder extends SwiperPlugin {
@@ -14,11 +13,14 @@ class CustomSwiperPaginationBuilder extends SwiperPlugin {
   // 每个圆点的间距
   final double space;
  
-  // 每个圆点的大小
-  final double size;
+  // 每个圆点的宽度
+  final double width;
  
   // 特殊点的宽度
-  final double activeSize;
+  final double activeWidth;
+
+  //高度
+  final double height;
  
   final double bottom;
  
@@ -30,8 +32,9 @@ class CustomSwiperPaginationBuilder extends SwiperPlugin {
       {this.color = const Color.fromRGBO(255, 255, 253, 0.5),
       this.activeColor = Colors.white,
       this.space = 3.0,
-      this.size = 6.0,
-      this.activeSize = 20.0,
+      this.width = 6.0,
+      this.activeWidth = 20.0,
+      this.height = 3,
       this.bottom = 0.0,
       this.alignment = Alignment.center,
       this.key});
@@ -60,8 +63,8 @@ class CustomSwiperPaginationBuilder extends SwiperPlugin {
               clipBehavior: Clip.antiAlias,
               child: Container(
                 color: activeColor,
-                width: activeSize,
-                height: ScreenAdaptor.height(8),
+                width: activeWidth,
+                height: height,
               ),
             )));
       } else {
@@ -72,8 +75,8 @@ class CustomSwiperPaginationBuilder extends SwiperPlugin {
             // 圆角组件
             child: Container(
               color: color,
-              width: size,
-              height: ScreenAdaptor.height(8),
+              width: width,
+              height: height
             ),
           ),
         ));

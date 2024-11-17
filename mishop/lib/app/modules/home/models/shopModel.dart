@@ -23,7 +23,7 @@ class ShopModel {
     List<ShopModel> shopmodels = [];
     var response = await Dio().get(url);
     List datas = response.data["result"];
-    print(datas);
+    // print(datas);
 
     shopmodels = datas.map((data) {
       return ShopModel.fromJson(data);

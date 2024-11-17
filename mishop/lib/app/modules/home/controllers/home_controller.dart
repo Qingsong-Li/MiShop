@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:mishop/app/modules/home/models/CategorySwiperModel.dart';
 import 'package:mishop/app/modules/home/models/shopModel.dart';
+import 'package:mishop/app/services/ApiUrls.dart';
 import 'package:mishop/app/services/screenAdaptor.dart';
 
 class HomeController extends GetxController
@@ -8,15 +10,17 @@ class HomeController extends GetxController
   //TODO: Implement HomeController
 
   RxList<ShopModel> focusList = <ShopModel>[].obs;
+  RxList<CategorySwiperItemModel> categorySwiperList =
+      <CategorySwiperItemModel>[].obs;
 
   final ScrollController scrollController =
       ScrollController(); // ListView的滚动控制器
 
   late final AnimationController animationController;
-  late final textfieldAnimation; //输入框延长的动画
-  late final xiaomiAnimation; //小米logo消失的动画
-  late final postfixIconAnimation; //二维码和消息Icon颜色变化的动画
-  late final backgroundAnimation; //背景高斯模糊的动画
+  late final Animation textfieldAnimation; //输入框延长的动画
+  late final Animation xiaomiAnimation; //小米logo消失的动画
+  late final Animation postfixIconAnimation; //二维码和消息Icon颜色变化的动画
+  late final Animation backgroundAnimation; //背景高斯模糊的动画
 
   // 根据滚动距离更新动画进度
   void updateAnimation(double offset) {
@@ -36,12 +40,21 @@ class HomeController extends GetxController
     super.onInit();
     animateInit();
     getFocusData();
+    getCategorySwiperData();
   }
 
-// 数据初始化
+// banner数据初始化
   void getFocusData() async {
-    focusList.value =
-        await ShopModel.requestWithUrl("https://miapp.itying.com/api/focus");
+    focusList.value = await ShopModel.requestWithUrl(ApiUrls.getFocusUrl());
+  }
+
+// categorySwiper数据初始化
+  void getCategorySwiperData() async {
+    CategorySwiperModel categorySwiperModel =
+        await CategorySwiperModel.fromUrl(ApiUrls.getCategorySwiperUrl());
+    categorySwiperList.value = categorySwiperModel.result!;
+
+    update();
   }
 
 // banner动画初始化
