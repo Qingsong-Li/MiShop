@@ -20,12 +20,14 @@ class _MainContentState extends State<MainContent> {
   late Widget _banner;
   late Widget _categorySwiper;
   late Widget _banner2;
+  late Widget _bestSelling;
   @override
   void initState() {
     super.initState();
     buildBanner();
     buildCategorySwiper();
     buildBanner2();
+    buildBestSelling();
   }
 
   @override
@@ -52,6 +54,7 @@ class _MainContentState extends State<MainContent> {
         ),
         _categorySwiper,
         _banner2,
+        _bestSelling,
         const SizedBox(
           height: 2000,
         ),
@@ -86,16 +89,17 @@ class _MainContentState extends State<MainContent> {
     );
   }
 
+//分类
   void buildCategorySwiper() {
     _categorySwiper = SizedBox(
         height: ScreenAdaptor.height(480),
         child: Obx(() => CustomScrollerBar(
             length: ScreenAdaptor.width(150),
-            activeLength: ScreenAdaptor.width(80),
+            activeLength: ScreenAdaptor.width(75),
             width: ScreenAdaptor.width(10),
             activeColor: const Color.fromRGBO(166, 166, 166, 1),
             backgroundColor: const Color.fromRGBO(239, 239, 239, 1),
-            child:  GridView.builder(
+            child: GridView.builder(
                 primary: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.controller.categorySwiperList.value.length,
@@ -130,10 +134,11 @@ class _MainContentState extends State<MainContent> {
                 }))));
   }
 
+// 
   void buildBanner2() {
     _banner2 = Padding(
-      padding: EdgeInsets.fromLTRB(
-          ScreenAdaptor.width(20), ScreenAdaptor.height(15), ScreenAdaptor.width(20), 0),
+      padding: EdgeInsets.fromLTRB(ScreenAdaptor.width(20),
+          ScreenAdaptor.height(15), ScreenAdaptor.width(20), 0),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
@@ -145,5 +150,155 @@ class _MainContentState extends State<MainContent> {
         height: ScreenAdaptor.height(420),
       ),
     );
+  }
+
+// 热销甄选
+  void buildBestSelling() {
+    _bestSelling = Column(
+      children: [
+        Padding(
+            padding: EdgeInsets.fromLTRB(
+                ScreenAdaptor.width(30),
+                ScreenAdaptor.height(40),
+                ScreenAdaptor.width(30),
+                ScreenAdaptor.height(20)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("热销臻选",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: ScreenAdaptor.fontSize(46))),
+                Text("更多手机推荐 >",
+                    style: TextStyle(fontSize: ScreenAdaptor.fontSize(38)))
+              ],
+            )),
+        Padding(
+          padding: EdgeInsets.fromLTRB(ScreenAdaptor.width(20), 0,
+              ScreenAdaptor.width(20), ScreenAdaptor.height(20)),
+          child: Row(
+            children: [
+              //左侧
+              Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    height: ScreenAdaptor.height(738),
+                    child: Swiper(
+                        itemBuilder: (context, index) {
+                          String picUrl =
+                              "https://www.itying.com/images/b_focus0${index + 1}.png";
+                          return Image.network(
+                            picUrl,
+                            fit: BoxFit.fill,
+                          );
+                        },
+                        itemCount: 3,
+                        autoplay: true,
+                        loop: true,
+                        pagination: CustomSwiperPaginationBuilder(
+                            space: 0,
+                            color: Colors.black12,
+                            bottom: ScreenAdaptor.height(20),
+                            activeColor: Colors.black54,
+                            height: ScreenAdaptor.height(8),
+                            width: ScreenAdaptor.width(40),
+                            activeWidth: ScreenAdaptor.width(40))),
+                  )),
+              SizedBox(width: ScreenAdaptor.width(20)),
+              //右侧
+              Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    height: ScreenAdaptor.height(738),
+                    child: Column(
+                      children: [
+                        BestSellingCell(
+                            title: "空气炸烤箱",
+                            detail: "大容量更专业",
+                            price: "众筹价¥345元",
+                            picUrl:
+                                "https://www.itying.com/images/kaoxiang.png"),
+                        SizedBox(height: ScreenAdaptor.height(20)),
+                        BestSellingCell(
+                            title: "空气炸烤箱",
+                            detail: "大容量更专业",
+                            price: "众筹价¥345元",
+                            picUrl: "https://www.itying.com/images/shouji.png"),
+                        SizedBox(height: ScreenAdaptor.height(20)),
+                        BestSellingCell(
+                            title: "空气炸烤箱",
+                            detail: "大容量更专业",
+                            price: "众筹价¥345元",
+                            picUrl: "https://www.itying.com/images/shouji.png"),
+                      ],
+                    ),
+                  )),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+//热销甄选的块
+// ignore: must_be_immutable
+class BestSellingCell extends StatelessWidget {
+  String title;
+  String detail;
+  String price;
+  String picUrl;
+
+  BestSellingCell(
+      {super.key,
+      required this.title,
+      required this.detail,
+      required this.price,
+      required this.picUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        flex: 1,
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(246, 246, 246, 1),
+            borderRadius: BorderRadius.circular(ScreenAdaptor.width(30))
+          ),
+          
+          child: Row(
+            children: [
+              SizedBox(width: ScreenAdaptor.width(10),),
+              Expanded(
+                flex: 3,
+                child: Column(
+               
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: ScreenAdaptor.height(20)),
+                    Text(title,
+                        style: TextStyle(
+                            fontSize: ScreenAdaptor.fontSize(38),
+                            fontWeight: FontWeight.bold)),
+                    SizedBox(height: ScreenAdaptor.height(20)),
+                    Text(detail,
+                        style: TextStyle(fontSize: ScreenAdaptor.fontSize(28),color: Colors.grey[700])),
+                    SizedBox(height: ScreenAdaptor.height(20)),
+                    Text(price,
+                        style: TextStyle(fontSize: ScreenAdaptor.fontSize(34)))
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsets.all(ScreenAdaptor.height(8)),
+                  child: Image.network(picUrl, fit: BoxFit.scaleDown),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }

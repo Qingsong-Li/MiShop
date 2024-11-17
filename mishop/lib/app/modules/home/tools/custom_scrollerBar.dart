@@ -27,7 +27,7 @@ class _CustomScrollerBarState extends State<CustomScrollerBar> {
   late double alignment = -1 *
       (widget.child.scrollDirection == Axis.horizontal
           ? widget.length / ScreenAdaptor.getScreenWidth()
-          : widget.length / ScreenAdaptor.getScreenHeight());
+          : widget.length / ScreenAdaptor.getScreenHeight())/2;
 
   bool _handleScrollNotification(ScrollNotification notification) {
     final ScrollMetrics metrics = notification.metrics;
@@ -36,7 +36,7 @@ class _CustomScrollerBarState extends State<CustomScrollerBar> {
       alignment = (-1 + (metrics.pixels / metrics.maxScrollExtent) * 2) *
           (widget.child.scrollDirection == Axis.horizontal
               ? widget.length / ScreenAdaptor.getScreenWidth()
-              : widget.length / ScreenAdaptor.getScreenHeight());
+              : widget.length / ScreenAdaptor.getScreenHeight())/2;
     });
 
     return true;
