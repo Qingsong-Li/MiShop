@@ -13,7 +13,7 @@ class ScreenAdaptor {
    static  getScreenWidth(){
     return 1.sw;
   }
-   static  getScreenHeight(num value){
+   static  getScreenHeight(){
     return 1.sh;
   }
 }

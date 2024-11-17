@@ -1,10 +1,10 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mishop/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:mishop/app/modules/home/tools/custom_scrollerBar.dart';
 import 'package:mishop/app/modules/home/tools/custom_swiper_pagination_builder.dart';
 import 'package:mishop/app/services/screenAdaptor.dart';
 
@@ -19,11 +19,13 @@ class MainContent extends StatefulWidget {
 class _MainContentState extends State<MainContent> {
   late Widget _banner;
   late Widget _categorySwiper;
+  late Widget _banner2;
   @override
   void initState() {
     super.initState();
     buildBanner();
     buildCategorySwiper();
+    buildBanner2();
   }
 
   @override
@@ -49,7 +51,7 @@ class _MainContentState extends State<MainContent> {
           ),
         ),
         _categorySwiper,
-
+        _banner2,
         const SizedBox(
           height: 2000,
         ),
@@ -71,7 +73,6 @@ class _MainContentState extends State<MainContent> {
           itemCount: widget.controller.focusList.length,
           itemBuilder: (context, index) {
             return Image.network(
-          
               widget.controller.focusList.value[index].pic!,
               fit: BoxFit.cover,
             );
@@ -86,56 +87,63 @@ class _MainContentState extends State<MainContent> {
   }
 
   void buildCategorySwiper() {
-    _categorySwiper = Container(
-      width: ScreenAdaptor.width(1080),
-      height: ScreenAdaptor.height(480),
-      // color: Colors.red,
-      child: Obx(() => Swiper(
-            loop: false,
-            pagination: SwiperPagination(
-                builder: CustomSwiperPaginationBuilder(
-                    space: 0,
-                    color: const Color.fromRGBO(239, 239, 239, 1),
-                    activeColor: const Color.fromRGBO(166, 166, 166, 1),
-                    height: ScreenAdaptor.height(8),
-                    width: ScreenAdaptor.width(75),
-                    activeWidth: ScreenAdaptor.width(75))),
-            itemCount: widget.controller.categorySwiperList.value.length ~/ 10,
-            itemBuilder: (context, i) {
-              return GridView.builder(
-                  itemCount: 10,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
-                      crossAxisSpacing: ScreenAdaptor.width(20),
-                      mainAxisSpacing: ScreenAdaptor.height(20)),
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          height: ScreenAdaptor.height(140),
-                          width: ScreenAdaptor.width(140),
-                          child: Image.network(
-                            widget.controller.categorySwiperList
-                                .value[i * 10 + index].pic!,
-                            fit: BoxFit.cover,
-                          ),
+    _categorySwiper = SizedBox(
+        height: ScreenAdaptor.height(480),
+        child: Obx(() => CustomScrollerBar(
+            length: ScreenAdaptor.width(150),
+            activeLength: ScreenAdaptor.width(80),
+            width: ScreenAdaptor.width(10),
+            activeColor: const Color.fromRGBO(166, 166, 166, 1),
+            backgroundColor: const Color.fromRGBO(239, 239, 239, 1),
+            child:  GridView.builder(
+                primary: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.controller.categorySwiperList.value.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: ScreenAdaptor.height(40)),
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: ScreenAdaptor.height(140),
+                        width: ScreenAdaptor.width(140),
+                        child: Image.network(
+                          widget
+                              .controller.categorySwiperList.value[index].pic!,
+                          fit: BoxFit.cover,
                         ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              0, ScreenAdaptor.height(5), 5, 0),
-                          child: Text(
-                            widget.controller.categorySwiperList
-                                .value[i * 10 + index].title!,
-                            style:
-                                TextStyle(fontSize: ScreenAdaptor.fontSize(34)),
-                          ),
-                        )
-                      ],
-                    );
-                  });
-            },
-          )),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            0, ScreenAdaptor.height(5), 5, 0),
+                        child: Text(
+                          widget.controller.categorySwiperList.value[index]
+                              .title!,
+                          style:
+                              TextStyle(fontSize: ScreenAdaptor.fontSize(34)),
+                        ),
+                      )
+                    ],
+                  );
+                }))));
+  }
+
+  void buildBanner2() {
+    _banner2 = Padding(
+      padding: EdgeInsets.fromLTRB(
+          ScreenAdaptor.width(20), ScreenAdaptor.height(15), ScreenAdaptor.width(20), 0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            image: const DecorationImage(
+                image: AssetImage(
+                  "assets/images/xiaomiBanner2.png",
+                ),
+                fit: BoxFit.cover)),
+        height: ScreenAdaptor.height(420),
+      ),
     );
   }
 }
