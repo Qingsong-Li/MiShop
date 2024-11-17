@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mishop/app/modules/home/models/CategorySwiperModel.dart';
+import 'package:mishop/app/modules/home/models/PlistModel.dart';
 import 'package:mishop/app/modules/home/models/shopModel.dart';
 import 'package:mishop/app/services/ApiUrls.dart';
 import 'package:mishop/app/services/screenAdaptor.dart';
@@ -12,6 +13,10 @@ class HomeController extends GetxController
   RxList<ShopModel> focusList = <ShopModel>[].obs;
   RxList<CategorySwiperItemModel> categorySwiperList =
       <CategorySwiperItemModel>[].obs;
+
+  RxList<ShopModel> bestSellingList = <ShopModel>[].obs;
+
+  RxList<PlistItemModel> bestSellingPlist = <PlistItemModel>[].obs;
 
   final ScrollController scrollController =
       ScrollController(); // ListView的滚动控制器
@@ -41,6 +46,7 @@ class HomeController extends GetxController
     animateInit();
     getFocusData();
     getCategorySwiperData();
+    getBestSellingData();
   }
 
 // banner数据初始化
@@ -55,6 +61,15 @@ class HomeController extends GetxController
     categorySwiperList.value = categorySwiperModel.result!;
 
     update();
+  }
+
+// bestSelling数据初始化
+  void getBestSellingData() async {
+    bestSellingList.value =
+        await ShopModel.requestWithUrl(ApiUrls.getBestSellingUrl());
+    PlistModel plistModel =
+        await PlistModel.fromUrl(ApiUrls.getBestSellingPlistUrl());
+    bestSellingPlist.value = plistModel.result!;
   }
 
 // banner动画初始化

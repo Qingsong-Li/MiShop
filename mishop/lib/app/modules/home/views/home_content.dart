@@ -134,7 +134,7 @@ class _MainContentState extends State<MainContent> {
                 }))));
   }
 
-// 
+//
   void buildBanner2() {
     _banner2 = Padding(
       padding: EdgeInsets.fromLTRB(ScreenAdaptor.width(20),
@@ -184,16 +184,17 @@ class _MainContentState extends State<MainContent> {
                   flex: 1,
                   child: SizedBox(
                     height: ScreenAdaptor.height(738),
-                    child: Swiper(
+                    child: Obx(() => Swiper(
                         itemBuilder: (context, index) {
-                          String picUrl =
-                              "https://www.itying.com/images/b_focus0${index + 1}.png";
+                          String picUrl = widget
+                              .controller.bestSellingList.value[index].pic!;
                           return Image.network(
                             picUrl,
                             fit: BoxFit.fill,
                           );
                         },
-                        itemCount: 3,
+                        itemCount:
+                            widget.controller.bestSellingList.value.length,
                         autoplay: true,
                         loop: true,
                         pagination: CustomSwiperPaginationBuilder(
@@ -203,7 +204,7 @@ class _MainContentState extends State<MainContent> {
                             activeColor: Colors.black54,
                             height: ScreenAdaptor.height(8),
                             width: ScreenAdaptor.width(40),
-                            activeWidth: ScreenAdaptor.width(40))),
+                            activeWidth: ScreenAdaptor.width(40)))),
                   )),
               SizedBox(width: ScreenAdaptor.width(20)),
               //右侧
@@ -211,28 +212,27 @@ class _MainContentState extends State<MainContent> {
                   flex: 1,
                   child: SizedBox(
                     height: ScreenAdaptor.height(738),
-                    child: Column(
-                      children: [
-                        BestSellingCell(
-                            title: "空气炸烤箱",
-                            detail: "大容量更专业",
-                            price: "众筹价¥345元",
-                            picUrl:
-                                "https://www.itying.com/images/kaoxiang.png"),
-                        SizedBox(height: ScreenAdaptor.height(20)),
-                        BestSellingCell(
-                            title: "空气炸烤箱",
-                            detail: "大容量更专业",
-                            price: "众筹价¥345元",
-                            picUrl: "https://www.itying.com/images/shouji.png"),
-                        SizedBox(height: ScreenAdaptor.height(20)),
-                        BestSellingCell(
-                            title: "空气炸烤箱",
-                            detail: "大容量更专业",
-                            price: "众筹价¥345元",
-                            picUrl: "https://www.itying.com/images/shouji.png"),
-                      ],
-                    ),
+                    child: Obx(() => Column(
+                          children: List.generate(
+                              widget.controller.bestSellingPlist.value.length,
+                              (index) {
+                            var list = widget.controller.bestSellingPlist.value;
+                            return index == list.length - 1
+                                ? BestSellingCell(
+                                    margin: EdgeInsets.zero,
+                                    title: list[index].title,
+                                    detail: list[index].subTitle,
+                                    price: list[index].price,
+                                    picUrl: list[index].pic)
+                                : BestSellingCell(
+                                    margin: EdgeInsets.only(
+                                        bottom: ScreenAdaptor.height(20)),
+                                    title: list[index].title,
+                                    detail: list[index].subTitle,
+                                    price: list[index].price,
+                                    picUrl: list[index].pic);
+                          }),
+                        )),
                   )),
             ],
           ),
@@ -245,47 +245,51 @@ class _MainContentState extends State<MainContent> {
 //热销甄选的块
 // ignore: must_be_immutable
 class BestSellingCell extends StatelessWidget {
-  String title;
-  String detail;
-  String price;
-  String picUrl;
+  String? title;
+  String? detail;
+  int? price;
+  String? picUrl;
+  EdgeInsets margin;
 
   BestSellingCell(
       {super.key,
       required this.title,
       required this.detail,
       required this.price,
-      required this.picUrl});
+      required this.picUrl,
+      required this.margin});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         flex: 1,
         child: Container(
+          margin: margin,
           decoration: BoxDecoration(
-            color: const Color.fromRGBO(246, 246, 246, 1),
-            borderRadius: BorderRadius.circular(ScreenAdaptor.width(30))
-          ),
-          
+              color: const Color.fromRGBO(246, 246, 246, 1),
+              borderRadius: BorderRadius.circular(ScreenAdaptor.width(30))),
           child: Row(
             children: [
-              SizedBox(width: ScreenAdaptor.width(10),),
+              SizedBox(
+                width: ScreenAdaptor.width(10),
+              ),
               Expanded(
                 flex: 3,
                 child: Column(
-               
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: ScreenAdaptor.height(20)),
-                    Text(title,
+                    Text(title!,
                         style: TextStyle(
                             fontSize: ScreenAdaptor.fontSize(38),
                             fontWeight: FontWeight.bold)),
                     SizedBox(height: ScreenAdaptor.height(20)),
-                    Text(detail,
-                        style: TextStyle(fontSize: ScreenAdaptor.fontSize(28),color: Colors.grey[700])),
+                    Text(detail!,
+                        style: TextStyle(
+                            fontSize: ScreenAdaptor.fontSize(28),
+                            color: Colors.grey[700])),
                     SizedBox(height: ScreenAdaptor.height(20)),
-                    Text(price,
+                    Text("热销价¥${price}元",
                         style: TextStyle(fontSize: ScreenAdaptor.fontSize(34)))
                   ],
                 ),
@@ -294,7 +298,7 @@ class BestSellingCell extends StatelessWidget {
                 flex: 2,
                 child: Padding(
                   padding: EdgeInsets.all(ScreenAdaptor.height(8)),
-                  child: Image.network(picUrl, fit: BoxFit.scaleDown),
+                  child: Image.network(picUrl!, fit: BoxFit.cover),
                 ),
               )
             ],

@@ -15,6 +15,8 @@ class ApiUrls {
   // 这里定义不同的接口路径
   static String get getCategorySwiper => "/api/bestCate";
   static String get getFocus =>"/api/focus";
+  static String get getBestSelling =>"/api/focus?position=2";
+  static String get getBestSellingPlist =>"/api/plist?is_hot=1&pageSize=3";
   // 拼接完整的 URL
   static String getCategorySwiperUrl() {
     return "$baseUrl$getCategorySwiper";
@@ -22,5 +24,11 @@ class ApiUrls {
 
   static String getFocusUrl() {
     return "$baseUrl$getFocus";
+  }
+  static String getBestSellingUrl() {
+    return "$baseUrl$getBestSelling";
+  }
+  static String getBestSellingPlistUrl() {
+    return "$baseUrl$getBestSellingPlist";
   }
 }
